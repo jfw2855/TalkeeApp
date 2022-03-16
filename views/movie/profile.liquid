@@ -8,10 +8,10 @@
                 <h5 class="card-header">{{ movie.title }}</h5>
                 <div class="card-body">
                     <img class="show-img" src="{{movie.img}}" alt="{{movie.title}}">
-
-                    <a href="" class="btn btn-info">
-                        View {{ movie.title }}
-                    </a>
+                    <form action="/movie/search" method="POST">
+                        <input type="text" name="movieSearch" value="{{movie.title}}" hidden>
+                        <button class="btn-info" type="submit">View {{movie.title}}</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
