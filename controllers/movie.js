@@ -24,48 +24,39 @@ router.use((req, res, next) => {
 
 // Routes
 
-// index ALL
-router.get('/', (req, res) => {
-	Example.find({})
-		.then(examples => {
-			const username = req.session.username
-			const loggedIn = req.session.loggedIn
-			
-			res.render('examples/index', { examples, username, loggedIn })
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
 
-// index that shows only the user's examples
-router.get('/mine', (req, res) => {
+// index that shows only the user's movies
+router.get('/profile', (req, res) => {
     // destructure user info from req.session
     const { username, userId, loggedIn } = req.session
-	Example.find({ owner: userId })
-		.then(examples => {
-			res.render('examples/index', { examples, username, loggedIn })
+	Movie.find({ owner: userId })
+		.then(movies => {
+			res.render('movie/profile', { movies, username, loggedIn })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
 
-// new route -> GET route that renders our page with the form
-router.get('/new', (req, res) => {
-	const { username, userId, loggedIn } = req.session
-	res.render('examples/new', { username, loggedIn })
+router.post('/test', (req,res)=> {
+	console.log("req body",req.body)
+	res.send('test post reached')
 })
 
+
+
+
+
+
+
 // create -> POST route that actually calls the db and makes a new document
-router.post('/', (req, res) => {
-	req.body.ready = req.body.ready === 'on' ? true : false
+router.post('/add', (req, res) => {
 
 	req.body.owner = req.session.userId
-	Example.create(req.body)
+	Movie.create(req.body)
 		.then(example => {
 			console.log('this was returned from create', example)
-			res.redirect('/examples')
+			res.redirect('/')
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -119,7 +110,7 @@ router.post('/search', async (req, res) => {
 		const genres = movie.genres
 		const rating = movie.imDbRating
 		const plot = movie.plot
-		
+
 		res.render('movie/show',{year,title,imbd_id,img,genres,rating,plot})
 	})
 	.catch(error => {
@@ -127,9 +118,6 @@ router.post('/search', async (req, res) => {
 	})
 
 })
-
-
-
 
 
 
