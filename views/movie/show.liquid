@@ -1,21 +1,22 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<h1>{{title}}</h1>
+<h1>{{movie.title}}</h1>
 <div class="show-container container-md">
-<img class="show-img" src="{{img}}" alt="{{title}}">
+<img class="show-img" src="{{movie.image}}" alt="{{movie.title}}">
 <div class="movie-info">
     <ul>
-        <li>Genres: {{genres}}</li>
-        <li>Year: {{year}}</li>
-        <li>IMDb Rating: {{rating}}</li>
-        <li>Plot: {{plot}}</li>
+        <li>Genres: {{movie.genres}}</li>
+        <li>Year: {{movie.description}}</li>
+        <li>IMDb Rating: {{movie.imDbRating}}</li>
+        <li>Plot: {{movie.plot}}</li>
     </ul>
 </div>
+
 <div class="button">
     <form action="/movie/add" method="POST">
-        <input type="text" name="imdbId" value="{{imbd_id}}" hidden>
-        <input type="text" name="title" value="{{title}}" hidden>
-        <input type="text" name="img" value="{{img}}" hidden>
+        <input type="text" name="imdbId" value="{{movie.id}}" hidden>
+        <input type="text" name="title" value="{{movie.title}}" hidden>
+        <input type="text" name="img" value="{{movie.image}}" hidden>
         <input 
             type="submit" 
             value="Add to Profile"
