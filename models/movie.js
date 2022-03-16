@@ -12,9 +12,6 @@ const movieSchema = new Schema(
 		imdbId: {type: String, required: true},
 		title: { type: String, required: true },
 		img: { type: String, required: true },
-        genres: [{ type: String, required: true }],
-		rating: { type: Number, required: true },
-		plot: {type: String, required: true},
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: 'User',
