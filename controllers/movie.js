@@ -1,7 +1,10 @@
 // Import Dependencies
 const express = require('express')
-const Example = require('../models/example')
-
+const Movie = require('../models/movie')
+const fetch = require('node-fetch')
+const { response } = require('express')
+const API_KEY = "k_k9n25mf8"
+const apiURL = `https://imdb-api.com/API/AdvancedSearch/${API_KEY}/?title=`
 // Create router
 const router = express.Router()
 
@@ -95,6 +98,40 @@ router.put('/:id', (req, res) => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
+
+// query show route
+
+router.post('/search', async (req, res) => {
+	// fetches the movie data from the imbd api
+	const requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	}
+	const query = req.body.movieSearch
+	fetch(`${apiURL}${query}`, requestOptions)
+	.then(apiResp => apiResp.json())
+	.then(data => {
+		const movie = data.results[0]
+		const title = movie.title
+		const imbd_id = movie.id
+		const year = movie.description
+		const img = movie.image
+		const genres = movie.genres
+		const rating = movie.imDbRating
+		const plot = movie.plot
+		
+		res.render('movie/show',{year,title,imbd_id,img,genres,rating,plot})
+	})
+	.catch(error => {
+		console.log("error!", error)
+	})
+
+})
+
+
+
+
+
 
 // show route
 router.get('/:id', (req, res) => {
