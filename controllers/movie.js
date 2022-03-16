@@ -38,15 +38,6 @@ router.get('/profile', (req, res) => {
 		})
 })
 
-router.post('/test', (req,res)=> {
-	console.log("req body",req.body)
-	res.send('test post reached')
-})
-
-
-
-
-
 
 
 // create -> POST route that actually calls the db and makes a new document
@@ -63,32 +54,6 @@ router.post('/add', (req, res) => {
 		})
 })
 
-// edit route -> GET that takes us to the edit form view
-router.get('/:id/edit', (req, res) => {
-	// we need to get the id
-	const exampleId = req.params.id
-	Example.findById(exampleId)
-		.then(example => {
-			res.render('examples/edit', { example })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
-
-// update route
-router.put('/:id', (req, res) => {
-	const exampleId = req.params.id
-	req.body.ready = req.body.ready === 'on' ? true : false
-
-	Example.findByIdAndUpdate(exampleId, req.body, { new: true })
-		.then(example => {
-			res.redirect(`/examples/${example.id}`)
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
 
 // query show route
 
@@ -102,16 +67,11 @@ router.post('/search', async (req, res) => {
 	fetch(`${apiURL}${query}`, requestOptions)
 	.then(apiResp => apiResp.json())
 	.then(data => {
+		const {username, loggedIn, userId} = req.session
 		const movie = data.results[0]
-		const title = movie.title
-		const imbd_id = movie.id
-		const year = movie.description
-		const img = movie.image
-		const genres = movie.genres
-		const rating = movie.imDbRating
-		const plot = movie.plot
 
-		res.render('movie/show',{year,title,imbd_id,img,genres,rating,plot})
+
+		res.render('movie/show',{movie,username,loggedIn,userId})
 	})
 	.catch(error => {
 		console.log("error!", error)
@@ -120,30 +80,19 @@ router.post('/search', async (req, res) => {
 })
 
 
-
-// show route
-router.get('/:id', (req, res) => {
-	const exampleId = req.params.id
-	Example.findById(exampleId)
-		.then(example => {
-            const {username, loggedIn, userId} = req.session
-			res.render('examples/show', { example, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
-
 // delete route
 router.delete('/:id', (req, res) => {
-	const exampleId = req.params.id
-	Example.findByIdAndRemove(exampleId)
-		.then(example => {
-			res.redirect('/examples')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
+	const movieId = req.params.id
+
+	console.log('this is the movies id',movieId)
+	Movie.findByIdAndRemove(movieId)
+	.then(data => {
+		console.log("DATA!",data)
+		res.redirect('/movie/profile')
+	})
+	.catch(error => {
+		res.redirect(`/error?error=${error}`)
+	})
 })
 
 // Export the Router
