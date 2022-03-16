@@ -1,7 +1,13 @@
 {% layout "layout.liquid" %}
 {% block content %}
 
-    <h1>Welcome!</h1>
-
+<div class="home-container">
+    <form action="/movie/search" method="POST">
+        <input
+        name="movieSearch"
+        placeholder="Movie Title">
+      <button type="submit">Search</button>
+  </form>
+</div>
 
 {% endblock %}
