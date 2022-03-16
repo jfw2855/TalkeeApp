@@ -12,6 +12,9 @@
                         <input type="text" name="movieSearch" value="{{movie.title}}" hidden>
                         <button class="btn-info" type="submit">View {{movie.title}}</button>
                     </form>
+                    <form action="/movie/{{movie._id}}?_method=DELETE" method="POST">
+                        <button class="btn-info" type="submit">Remove</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
