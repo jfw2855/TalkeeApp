@@ -1,7 +1,7 @@
 {% block content %}
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #1f1111;">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand">Examplr</a>
+        <a href="/" class="navbar-brand"><span class="logo">Talkee</span></a>
         {% if loggedIn %}
         <a href="/examples/mine" class="nav-link text-light">Hello {{ username }} </a>
         {% endif %}
@@ -10,9 +10,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if loggedIn %}
-                <a href="/examples" class="nav-link text-light">View All</a>
+                <a href="/social" class="nav-link text-light">Social</a>
                 <a href="/movie/profile" class="nav-link text-light">My Profile</a>
                 <a href="/auth/logout" class="nav-link text-light">Log Out</a>
+                <form class="d-flex" action="/movie/search" method="POST">
+                    <input
+                    class="form-control me-2"
+                    type="search"
+                    name="movieSearch"
+                    placeholder="Movie Title">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+
+
+                
             {% else %}
                 <a href="/auth/signup" class="nav-link text-light">Sign Up</a>
                 <a href="/auth/login" class="nav-link text-light">Sign In</a>
