@@ -1,0 +1,24 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+    <div>
+        <h2 class="display-6">Movies in Theater</h2>
+        <div class="row">
+            {% for movie in movies %}
+            <div class="movie" style="width: 18rem;">
+                <h5 class="card-header">{{ movie.title }}</h5>
+                <div class="card-body theater-movie">
+                    <form action="/movie/search" method="POST">
+                        <input type="text" name="movieSearch" value="{{movie.title}}" hidden>
+                        <input type="image" class="theater-img" src="{{movie.image}}" alt="{{movie.title}} Submit">
+                    </form>
+                <div class="theater-info">
+                    <div class="theater-infoChild">Rank: {{movie.rank}}</div>
+                    <div class="theater-infoChild">Weeks in Theaters: {{movie.weeks}}</div>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
