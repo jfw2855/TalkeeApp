@@ -1,7 +1,16 @@
 
-.show-img {
+.show-img,.index-img {
     width: 250px;
     height: 370px;
+    transition: height 0.3s;
+    background-color: black;
+    padding: 3px;
+}
+
+
+.index-img:hover {
+    opacity: 0.95;
+
 }
 
 .show-container {
@@ -20,4 +29,8 @@
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.096);
     border-radius: 5px;
+}
+
+.card-header {
+    text-align: center;
 }
