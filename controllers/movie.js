@@ -90,12 +90,12 @@ router.post('/inTheaters', async (req, res) => {
 	fetch(`${apiBoxOffice}`, requestOptions)
 	.then(apiResp => apiResp.json())
 	.then(data => {
-		
+		const {username, loggedIn, userId} = req.session
 		const movies = data.items
 
 		console.log("this is the data from in theaters", movies)
 
-		//res.render('movie/show',{data.items})
+		res.render('movie/theaters',{movies,username,loggedIn,userId})
 
 
 		//res.render('movie/show',{movie,username,loggedIn,userId})
