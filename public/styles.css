@@ -13,9 +13,17 @@
 
 }
 
-.show-container {
+.show-container,.movie-btns,.theater-movie {
     display: flex;
 }
+
+
+.theater-movie:hover {
+    opacity: 0.8;
+    transition: 0.6s;
+}
+
+
 
 .logo {
     font-weight: bold;
@@ -25,12 +33,26 @@
     border-radius: 5px;
     
 }
+.theater-infoChild {
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+    margin-left: 10px;
+}
 
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.096);
     border-radius: 5px;
+
 }
 
 .card-header {
     text-align: center;
+}
+
+.movie-btns {
+    justify-content: center;
+}
+
+.movie-btn {
+    margin: 0 10px;
 }
