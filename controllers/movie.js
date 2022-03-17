@@ -4,7 +4,9 @@ const Movie = require('../models/movie')
 const fetch = require('node-fetch')
 const { response } = require('express')
 const API_KEY = "k_k9n25mf8"
-const apiURL = `https://imdb-api.com/API/AdvancedSearch/${API_KEY}/?title=`
+const apiSearch = `https://imdb-api.com/API/AdvancedSearch/${API_KEY}/?title=`
+const apiBoxOffice = `https://imdb-api.com/en/API/BoxOffice/${API_KEY}`
+
 // Create router
 const router = express.Router()
 
@@ -45,8 +47,7 @@ router.post('/add', (req, res) => {
 
 	req.body.owner = req.session.userId
 	Movie.create(req.body)
-		.then(example => {
-			console.log('this was returned from create', example)
+		.then(() => {
 			res.redirect('/')
 		})
 		.catch(error => {
@@ -64,7 +65,7 @@ router.post('/search', async (req, res) => {
 		redirect: 'follow'
 	}
 	const query = req.body.movieSearch
-	fetch(`${apiURL}${query}`, requestOptions)
+	fetch(`${apiSearch}${query}`, requestOptions)
 	.then(apiResp => apiResp.json())
 	.then(data => {
 		const {username, loggedIn, userId} = req.session
@@ -72,6 +73,32 @@ router.post('/search', async (req, res) => {
 
 
 		res.render('movie/show',{movie,username,loggedIn,userId})
+	})
+	.catch(error => {
+		console.log("error!", error)
+	})
+
+})
+
+
+router.post('/inTheaters', async (req, res) => {
+	// fetches the movie data from the imbd api
+	const requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	}
+	fetch(`${apiBoxOffice}`, requestOptions)
+	.then(apiResp => apiResp.json())
+	.then(data => {
+		
+		const movies = data.items
+
+		console.log("this is the data from in theaters", movies)
+
+		//res.render('movie/show',{data.items})
+
+
+		//res.render('movie/show',{movie,username,loggedIn,userId})
 	})
 	.catch(error => {
 		console.log("error!", error)
