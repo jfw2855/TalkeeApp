@@ -1,7 +1,23 @@
+
 .show-img {
     width: 250px;
+    height: 370px;
 }
 
 .show-container {
     display: flex;
+}
+
+.logo {
+    font-weight: bold;
+    color: white;
+    background-color: rgb(13, 112, 112);
+    padding: 7px;
+    border-radius: 5px;
+    
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.096);
+    border-radius: 5px;
 }
