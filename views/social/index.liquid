@@ -14,11 +14,23 @@
         <div class="col-md-8 col-lg-6">
             <!-- loops over the comments -->
             <!-- for every comment render a comment.liquid block -->
+           
             {% for comment in comments %}
-                {% render '../comment.liquid', comment %}
-            {% endfor %}
+            <div class="card mb-4 shadow">
+                <div class="card-body">
+                    <p>User: {{username}}</p>
+                   <p>{{comment.note}}</p>
+                </div>
+            </div>
+            <form action="/comments?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value="{{comment.id}}">
+                <input type="submit" value="delete comment" class="btn btn-danger">
+            </form>
+            {% endfor %} 
+            
         </div>
     </div>
 </div>
 
 {% endblock %}
+
