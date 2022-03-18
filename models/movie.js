@@ -23,6 +23,6 @@ const movieSchema = new Schema(
 const Movie = model('Movie', movieSchema)
 
 /////////////////////////////////
-// Export our Model
+// Export Model
 /////////////////////////////////
 module.exports = Movie
