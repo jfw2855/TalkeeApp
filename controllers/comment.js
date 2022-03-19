@@ -24,6 +24,7 @@ router.post('/add', (req, res) => {
     // adjusts req.body to include an author
     // the author's id will be the logged in user's id
     req.body.author = req.session.userId
+    req.body.userPost = req.session.username
     console.log('updated comment body', req.body)
     // find all social contents
     Social.findOne({title:'message board'})
@@ -35,7 +36,7 @@ router.post('/add', (req, res) => {
 
         })
         .then(social => {
-            console.log("updated comments section", social.comments)
+            //console.log("updated comments section", social.comments)
             // redirect
             res.redirect(`/social`)
         })
