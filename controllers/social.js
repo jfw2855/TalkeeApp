@@ -29,9 +29,10 @@ router.get('/', (req, res) => {
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
 			const comments = social[0].comments
+			const userId = req.session.userId
 
 			
-			res.render('social/index', {comments, username, loggedIn })
+			res.render('social/index', {userId, comments, username, loggedIn })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)

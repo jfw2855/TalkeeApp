@@ -22,11 +22,13 @@
                    <p>{{comment.note}}</p>
                 </div>
             </div>
+            {%if comment.author == userId %}
             <a href="/comments/{{ comment.id }}/edit" class="btn btn-primary">Edit</a>
             <form action="/comments?_method=DELETE" method="POST">
                 <input type="hidden" name="id" value="{{comment.id}}">
                 <input type="submit" value="delete comment" class="btn btn-danger">
             </form>
+            {%endif%}
             {% endfor %} 
             
         </div>
