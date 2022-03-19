@@ -26,11 +26,9 @@ router.get('/', (req, res) => {
 	
 	Social.find({title:'message board'})
 		.then(social => {
-			//console.log("COMMENTS IN SOCIAL", social.comments)
 			const username = req.session.username
 			const loggedIn = req.session.loggedIn
 			const comments = social[0].comments
-			console.log('this is the social!!!!',comments)
 
 			
 			res.render('social/index', {comments, username, loggedIn })
