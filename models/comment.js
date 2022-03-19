@@ -9,7 +9,8 @@ const commentSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true
-		}
+		},
+		userPost: String
 	},
 	{ timestamps: true }
 )
