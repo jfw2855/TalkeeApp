@@ -1,7 +1,7 @@
 
 .show-img,.index-img,.theater-img {
-    width: 250px;
-    height: 370px;
+    width: 225px;
+    height: 345px;
     transition: height 0.3s;
     background-color: black;
     padding: 3px;
@@ -15,6 +15,17 @@
 .d-flex {
     justify-items: end;
 
+}
+
+.display-3 {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.theater-container,.profile-container {
+    background-color: rgba(13, 112, 112, 0.829);
 }
 
 .login-container {
@@ -45,15 +56,22 @@
 
 
 .index-img:hover {
-    opacity: 0.95;
+    opacity: 0.90;
 
 }
 
-.show-container,.movie-btns,.theater-movie,.post-btns {
+.show-container,.movie-btns,.post-btns {
     display: flex;
 }
 
+.card-body {
+    background-color: rgba(0, 0, 0, 0.466);
+}
 
+.card-footer,.card-header {
+    background-color: rgb(13, 112, 112);
+    color: white;
+}
 
 .theater-movie:hover {
     opacity: 0.8;
@@ -97,6 +115,9 @@
     margin: 0 10px;
 }
 
+.movie {
+    margin: 20px 0;
+}
 
 .bg {
     background: url('./images/homepage_background.jpg') no-repeat center center/cover;
@@ -125,3 +146,4 @@
     align-items: center;
     justify-content: center;
 }
+
