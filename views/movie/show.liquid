@@ -1,28 +1,35 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<h1>{{movie.title}}</h1>
-<div class="show-container container-md">
-<img class="show-img" src="{{movie.image}}" alt="{{movie.title}}">
-<div class="movie-info">
-    <ul>
-        <li>Genres: {{movie.genres}}</li>
-        <li>Year: {{movie.description}}</li>
-        <li>IMDb Rating: {{movie.imDbRating}}</li>
-        <li>Plot: {{movie.plot}}</li>
-    </ul>
-</div>
 
-<div class="button">
-    <form action="/movie/add" method="POST">
-        <input type="text" name="imdbId" value="{{movie.id}}" hidden>
-        <input type="text" name="title" value="{{movie.title}}" hidden>
-        <input type="text" name="img" value="{{movie.image}}" hidden>
-        <input 
-            type="submit" 
-            value="Add to Profile"
-            class="btn btn-success"
-        >
-    </form>
-</div>
+<div class="show-container">
+    <div class="show-info">
+        <h1 class="show-title">{{movie.title}}</h1>
+        <div class="rating"><span class="imdb-logo">IMDb</span> Rating: <strong>{{movie.imDbRating}}</strong>/10</div>
+        <h3 class="show-subtitle">{{movie.description}}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{{movie.contentRating}}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{{movie.runtimeStr}}</h3>
+        <div class="show-display">
+            <img class="show-img" src="{{movie.image}}" alt="{{movie.title}}">
+            <div class="movie-info">
+                <ul>
+                    <li class="plot">{{movie.plot}}</li>
+                    <li>
+                        <div class="button">
+                            <form action="/movie/add" method="POST">
+                                <input type="text" name="imdbId" value="{{movie.id}}" hidden>
+                                <input type="text" name="title" value="{{movie.title}}" hidden>
+                                <input type="text" name="img" value="{{movie.image}}" hidden>
+                                <input 
+                                    type="submit" 
+                                    value="Add to Profile"
+                                    class="btn btn-success"
+                                >
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <h3 class="show-subtitle">{{movie.genres}}</h3>
+    </div>
 </div>
 {% endblock %}
