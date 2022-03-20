@@ -17,6 +17,32 @@
 
 }
 
+.login-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-legend {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-form {
+    background-color: rgba(13, 112, 112, 0.692);
+    padding: 50px;
+    width: 450px;
+    height: 400px;
+    color: white;
+}
+
+.form-btn,.input-form {
+    margin: 20px 0;
+}
+
+
 
 .index-img:hover {
     opacity: 0.95;
@@ -45,9 +71,6 @@
     
 }
 
-.logo2 {
-    font-size: 50px;
-}
 
 
 .theater-infoChild {
@@ -84,7 +107,7 @@
 }
 
 .bgcover {
-    background: linear-gradient(180deg, rgba(0,0,0,0.913624824929972) 0%, rgba(0,0,0,0.29177608543417366) 17%, rgba(0,0,0,1) 98%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.913624824929972) 0%, rgba(13, 112, 112,10%) 25%, rgba(0,0,0, 0.774) 98%);
     z-index: 1;
     height: 100vh;
     background-size: 100% 100%;
