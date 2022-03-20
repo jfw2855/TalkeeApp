@@ -1,9 +1,9 @@
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #1f1111;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #000000c0;">
     <div class="container-fluid">
         <a href="/" class="navbar-brand"><span class="logo">Talkee</span></a>
         {% if loggedIn %}
-        <a href="/examples/mine" class="nav-link text-light">Hello {{ username }} </a>
+        <div class="username text-light">User: {{username}}</div>
         {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
