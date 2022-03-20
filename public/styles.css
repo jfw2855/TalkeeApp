@@ -44,6 +44,12 @@
     border-radius: 5px;
     
 }
+
+.logo2 {
+    font-size: 50px;
+}
+
+
 .theater-infoChild {
     font-weight: bold;
     font-family: Helvetica, sans-serif;
@@ -75,12 +81,24 @@
     height: 100vh;
     width: 100%;
     z-index: -1;
-  }
+}
 
-  .bgcover {
+.bgcover {
+    background: linear-gradient(180deg, rgba(0,0,0,0.913624824929972) 0%, rgba(0,0,0,0.29177608543417366) 17%, rgba(0,0,0,1) 98%);
+    z-index: 1;
+    height: 100vh;
+    background-size: 100% 100%;
+}
 
-    background: linear-gradient(183deg, rgba(255,255,255,0) 0%, rgba(0,0,0,1) 91%);
-      z-index: 1;
-      height: 100vh;
-      background-size: 100% 100%;
-  }
+.description {
+    z-index: 9;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
