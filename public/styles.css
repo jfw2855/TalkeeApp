@@ -57,7 +57,7 @@ li {
 }
 
 .d-flex {
-    justify-items: end;
+    margin-left: 950px;
 
 }
 
@@ -213,3 +213,24 @@ li {
     justify-content: center;
 }
 
+
+.social-title {
+    font-size: 50px;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.social-container {
+    background-color: rgba(13, 112, 112, 0.829);
+}
+
+.post-text {
+    color: white;
+    font-size: 20px;
+}
+
+.comment-form {
+    width: 500px;
+    margin-left: 250px;
+    color: rgb(219, 215, 213);
+}
