@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
-.show-img,.index-img,.theater-img {
+
+.index-img,.theater-img {
     width: 225px;
     height: 345px;
     transition: height 0.3s;
@@ -7,9 +9,51 @@
     padding: 3px;
 }
 
+.show-img {
+    width: 390px;
+}
+
+.show-title {
+    font-size: 50px;
+}
+
+.imdb-logo {
+    background-color: rgb(245,197,24);
+    color: black;
+    padding: 7px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Anton', sans-serif;
+}
+
+.show-subtitle {
+    font-size: 20px;
+    color: rgb(179, 178, 178);
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
 .username {
     margin-right: 10px;
     font-size: 15px;
+}
+
+strong {
+    font-size: 25px;
+}
+.rating {
+    font-size: 20px;
+    position: relative;
+    left: 75%;
+    top: -8%;
+}
+
+.plot {
+    font-size: 30px;
+}
+
+li {
+    list-style: none;
 }
 
 .d-flex {
@@ -24,7 +68,7 @@
     margin-bottom: 40px;
 }
 
-.theater-container,.profile-container {
+.theater-container,.profile-container,.show-container {
     background-color: rgba(13, 112, 112, 0.829);
 }
 
@@ -54,7 +98,6 @@
 }
 
 
-
 .index-img:hover {
     opacity: 0.90;
 
@@ -63,6 +106,24 @@
 .show-container,.movie-btns,.post-btns {
     display: flex;
 }
+
+.show-container {
+    justify-content: center;
+    color: white;
+    flex-direction: row;
+    background-color: cover;
+}
+
+.show-display {
+    display: flex;
+}
+
+.show-info {
+    background-color: rgb(31,31,31);
+    margin-top: 50px;
+    padding: 40px 25px;
+}
+
 
 .card-body {
     background-color: rgba(0, 0, 0, 0.466);
@@ -117,6 +178,11 @@
 
 .movie {
     margin: 20px 0;
+}
+
+.movie-info {
+    width: 500px;
+    height: 500px;
 }
 
 .bg {
