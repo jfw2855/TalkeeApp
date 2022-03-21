@@ -15,5 +15,6 @@ const commentSchema = new mongoose.Schema({
 	{ timestamps: true }
 )
 
+//exports the commentSchema 
 
 module.exports = commentSchema

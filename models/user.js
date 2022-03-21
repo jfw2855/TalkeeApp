@@ -17,7 +17,7 @@ const UserSchema = new Schema(
 	{ timestamps: true }
 )
 
-// creat the model
+// creates the model
 const User = model('User', UserSchema)
 
 // export the model
