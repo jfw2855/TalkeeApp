@@ -5,11 +5,12 @@ const express = require('express')
 const Movie = require('../models/movie')
 const fetch = require('node-fetch')
 const { response } = require('express')
+require('dotenv').config()
 
 ////////////////////////////////////////////
 // API Variables
 ////////////////////////////////////////////
-const API_KEY = "k_j918cun0"
+const API_KEY = process.env.API_KEY
 const apiSearch = `https://imdb-api.com/API/AdvancedSearch/${API_KEY}/?title=`
 const apiBoxOffice = `https://imdb-api.com/en/API/BoxOffice/${API_KEY}`
 
