@@ -19,19 +19,25 @@ const app = require("liquid-express-views")(express())
 
 middleware(app)
 
-////////////////////
-//    Routes      //
-////////////////////
+////////////////////////////////////////////
+// Routes
+////////////////////////////////////////////
 
 app.use('/auth', UserRouter)
 app.use('/movie', MovieRouter)
 app.use('/social', SocialRouter)
 app.use('/comments', CommentRouter)
 
+//index route -> gets the homescreen of the Talkee app
+
 app.get('/', (req, res) => {
+	// destructure user info from req.session
     const { username, userId, loggedIn } = req.session
+	// renders the landing page
 	res.render('index.liquid', { loggedIn, username, userId })
 })
+
+// error route -> gets the error page if a user trys to access a non-existent page
 
 app.get('/error', (req, res) => {
 	const error = req.query.error || 'This Page Does Not Exist'
