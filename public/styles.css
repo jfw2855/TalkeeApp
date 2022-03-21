@@ -229,8 +229,13 @@ li {
     font-size: 20px;
 }
 
+.edit-container {
+    background-color: rgba(13, 112, 112, 0.829);
+    height: 100vh;
+}
+
 .comment-form {
     width: 500px;
     margin-left: 250px;
-    color: rgb(219, 215, 213);
+    color: rgb(255, 255, 255);
 }
