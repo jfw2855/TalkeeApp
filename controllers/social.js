@@ -1,13 +1,19 @@
+////////////////////////////////////////////
 // Import Dependencies
+////////////////////////////////////////////
 const express = require('express')
 const Social = require('../models/social')
 const comment = require('../models/comment')
+
+////////////////////////////////////////////
 // Create router
+////////////////////////////////////////////
 const router = express.Router()
 
-// Router Middleware
-// Authorization middleware
-// If you have some resources that should be accessible to everyone regardless of loggedIn status, this middleware can be moved, commented out, or deleted. 
+///////////////////////////////////////////
+// Authorization Middleware
+///////////////////////////////////////////
+
 router.use((req, res, next) => {
 	// checking the loggedIn boolean of our session
 	if (req.session.loggedIn) {
@@ -19,28 +25,32 @@ router.use((req, res, next) => {
 	}
 })
 
+////////////////////////////////////////////
 // Routes
+////////////////////////////////////////////
 
-// index ALL
+// Index route -> gets all comments to display on social page
+
 router.get('/', (req, res) => {
 	
+	// finds all social content in message board
 	Social.find({title:'message board'})
 		.then(social => {
-			const username = req.session.username
-			const loggedIn = req.session.loggedIn
+			// destructure user info from req.session
+			const { username, userId, loggedIn } = req.session
+			// stores the comments array in the db to a variable
 			const comments = social[0].comments
-			const userId = req.session.userId
-
-			
+			// renders the social index page 
 			res.render('social/index', {userId, comments, username, loggedIn })
 		})
+		//shows an error page if there is an issue
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
 
 
-
-
+////////////////////////////////////////////
 // Export the Router
+////////////////////////////////////////////
 module.exports = router

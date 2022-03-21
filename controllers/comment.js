@@ -14,33 +14,30 @@ const router = express.Router()
 ////////////////////////////////////////////
 // Routes
 ////////////////////////////////////////////
-// only need two routes for comments right now
-// POST -> to create a comment
 
+
+// Create route -> Post comment to social model
 
 router.post('/add', (req, res) => {
-    console.log('first comment body', req.body)
     
     // adjusts req.body to include an author
     // the author's id will be the logged in user's id
     req.body.author = req.session.userId
     req.body.userPost = req.session.username
-    console.log('updated comment body', req.body)
-    // find all social contents
+
+    // finds all social contents
     Social.findOne({title:'message board'})
         .then(social => {
             // sends req.body to the comments array
-            console.log("this is the entry", social)
             social.comments.push(req.body)
+            //saves Social db
             return social.save()
-
         })
-        .then(social => {
-            //console.log("updated comments section", social.comments)
-            // redirect
+        .then(() => {
+            // redirects to social page
             res.redirect(`/social`)
         })
-        // or show an error if we have one
+        // shows an error if there is an issue
         .catch(error => {
             console.log(error)
             res.send(error)
@@ -48,72 +45,78 @@ router.post('/add', (req, res) => {
 })
 
 
-// edit route -> GET that takes us to the edit form view
+// Edit route -> GET that takes us to the edit form view
+
 router.get('/:id/edit', (req, res) => {
-	// we need to get the id
+	// grabs the comment id (commId) from the request parameters
 	const commId = req.params.id
-	// find all social content
+	// finds all social content
     Social.find({})
         .then(social => {
-            console.log('social',social)
+            // grabs and defines the comment schema to a variable
             let theComment = social[0].comments.id(commId)
+            //defines the username from the session
 			const username = req.session.username
+            //determines if a user is loggedIn from the session
 			const loggedIn = req.session.loggedIn
+            //renders the edit view page with the comment's information 
 			res.render('social/edit', { theComment, username, loggedIn })
 		})
-		// or show an error if we have one
+        // shows an error if there is an issue
         .catch(error => {
             console.log(error)
             res.send(error)
         })
 })
 
-// update route -> sends a put request to our database
+
+// Update route -> Puts the updated comment to the social database
+
 router.put('/:id', (req, res) => {
-	// get the id
+	// grabs the comment id (commId) from the request parameters
 	const commId = req.params.id
-    console.log("this is the req body",req.body)
-	// check and assign the readyToEat property with the correct value
+	// finds all social content
     Social.find({})
         .then(social => {
+            // grabs and defines the comment schema to a variable
             let theComment = social[0].comments.id(commId)
-            console.log('theComment from udpate',theComment)
+            // grabs and defines the updated comment note to a variable
             theComment.note = req.body.note
+            //saves Social db
             return social[0].save()
         })
         .then(() => {
+            //redirects to the social page
             res.redirect('/social')
         })
-
-		.catch((error) => res.json(error))
+        // shows an error if there is an issue
+        .catch(error => {
+            console.log(error)
+            res.send(error)
+        })
 })
 
 
-
-
-
-// DELETE -> to destroy a comment
+// Delete route -> removes the comment from the social database
 
 router.delete('/', (req,res)=> {
-    //first we want to parse out our id
+    //parses out the comment id from the request body
     const commId = req.body.id
-    console.log("commIdddddd",{commId})
-    // finds social content
+    // finds all social content
     Social.find({})
         .then(social => {
-            console.log('social',social)
-
+            // grabs and defines the comment schema to a variable
             let theComment = social[0].comments.id(commId)
-
-       
+            // removes the comment from the Social db
             theComment.remove()
+            //saves Social db
             return social[0].save()
     })
     .then (() => { 
         // redirects back to social page
         res.redirect(`/social`)
     })
-       // catch any errors!
+       // shows an error if there is an issue
         .catch(error => {
             console.log(error)
             res.send(error)

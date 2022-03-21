@@ -1,18 +1,28 @@
+////////////////////////////////////////////
 // Import Dependencies
+////////////////////////////////////////////
 const express = require('express')
 const Movie = require('../models/movie')
 const fetch = require('node-fetch')
 const { response } = require('express')
-const API_KEY = "k_k9n25mf8"
+
+////////////////////////////////////////////
+// API Variables
+////////////////////////////////////////////
+const API_KEY = "k_j918cun0"
 const apiSearch = `https://imdb-api.com/API/AdvancedSearch/${API_KEY}/?title=`
 const apiBoxOffice = `https://imdb-api.com/en/API/BoxOffice/${API_KEY}`
 
+
+////////////////////////////////////////////
 // Create router
+////////////////////////////////////////////
 const router = express.Router()
 
-// Router Middleware
-// Authorization middleware
-// If you have some resources that should be accessible to everyone regardless of loggedIn status, this middleware can be moved, commented out, or deleted. 
+///////////////////////////////////////////
+// Authorization Middleware
+///////////////////////////////////////////
+
 router.use((req, res, next) => {
 	// checking the loggedIn boolean of our session
 	if (req.session.loggedIn) {
@@ -24,17 +34,23 @@ router.use((req, res, next) => {
 	}
 })
 
+////////////////////////////////////////////
 // Routes
+////////////////////////////////////////////
 
 
-// index that shows only the user's movies
+// Index route -> gets only the user's movies
+
 router.get('/profile', (req, res) => {
     // destructure user info from req.session
     const { username, userId, loggedIn } = req.session
+	//queries the Movie db to find the owner's movie list
 	Movie.find({ owner: userId })
 		.then(movies => {
+			//renders the movie profile to display the user's movies
 			res.render('movie/profile', { movies, username, loggedIn })
 		})
+		//shows an error page if there is an issue
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
@@ -42,64 +58,74 @@ router.get('/profile', (req, res) => {
 
 
 
-// create -> POST route that actually calls the db and makes a new document
-router.post('/add', (req, res) => {
+// Create route -> Posts that creates a new movie entry into the Movie db
 
+router.post('/add', (req, res) => {
+	// assigns the owner Id to the request from the session
 	req.body.owner = req.session.userId
+	//creates a new movie entry in the Movie db
 	Movie.create(req.body)
 		.then(() => {
-			res.redirect('/')
+			//redirects to the profile page
+			res.redirect('/movie/profile')
 		})
+		//shows an error page if there is an issue
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
 })
 
 
-// query show route
+// Query Show route -> Sends an API request to the IMDB API to search for a movie title
 
 router.post('/search', async (req, res) => {
-	// fetches the movie data from the imbd api
+	// sets the fetch method to GET data from the api 
 	const requestOptions = {
 		method: 'GET',
 		redirect: 'follow'
 	}
+	//defines the movie search query to a variable
 	const query = req.body.movieSearch
+	//fetch the data from the API
 	fetch(`${apiSearch}${query}`, requestOptions)
+	//parses the response body text as JSON
 	.then(apiResp => apiResp.json())
 	.then(data => {
+		// destructure user info from req.session
 		const {username, loggedIn, userId} = req.session
+		// grabs ONLY the first data index from the api response JSON data and defines to a variable
 		const movie = data.results[0]
-
-
+		// renders the show page with the movie's data (movie variable)
 		res.render('movie/show',{movie,username,loggedIn,userId})
 	})
+	//shows an error if there is an issue w/ the api request
 	.catch(error => {
 		console.log("error!", error)
 	})
-
 })
 
 
+// Query Show route -> Sends an API request to the IMDB API to display the movie's currently in theaters
+
 router.post('/inTheaters', async (req, res) => {
-	// fetches the movie data from the imbd api
+	// fetches the movie data from the imdb api (GET)
 	const requestOptions = {
 		method: 'GET',
 		redirect: 'follow'
 	}
+	//fetch the data form the API
 	fetch(`${apiBoxOffice}`, requestOptions)
+	//parses the response body text as JSON
 	.then(apiResp => apiResp.json())
 	.then(data => {
+		// destructure user info from req.session
 		const {username, loggedIn, userId} = req.session
+		// stores all the movie theater data to a variable
 		const movies = data.items
-
-		console.log("this is the data from in theaters", movies)
-
+		// renders the theaters page to display movies currently in theaters
 		res.render('movie/theaters',{movies,username,loggedIn,userId})
-
-
-		//res.render('movie/show',{movie,username,loggedIn,userId})
 	})
+	// shows an error if there is an issue with the API call
 	.catch(error => {
 		console.log("error!", error)
 	})
@@ -107,20 +133,24 @@ router.post('/inTheaters', async (req, res) => {
 })
 
 
-// delete route
-router.delete('/:id', (req, res) => {
-	const movieId = req.params.id
+// delete route -> removes a movie from a user's profile
 
-	console.log('this is the movies id',movieId)
+router.delete('/:id', (req, res) => {
+	// grabs the movie id from the request parameters
+	const movieId = req.params.id
+	// queries the Movie db for the movie and removes it
 	Movie.findByIdAndRemove(movieId)
-	.then(data => {
-		console.log("DATA!",data)
+	.then(() => {
+		// redirects back to the user's profile
 		res.redirect('/movie/profile')
 	})
+	//shows an error page if there is an issue
 	.catch(error => {
 		res.redirect(`/error?error=${error}`)
 	})
 })
 
+////////////////////////////////////////////
 // Export the Router
+////////////////////////////////////////////
 module.exports = router
