@@ -1,18 +1,21 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<div class="container-sm">
-    <form action="/comments/{{theComment.id}}?_method=PUT" method="POST">
-        <fieldset>
-            <legend>Edit Comment</legend>
-            <input 
-                type="text" 
-                name="note" 
-                placeholder="Add comment"
-                class="form-control"
-                value="{{ theComment.note }}"
-            >
-        </fieldset>
-        <input type="submit" class="btn btn-success" value="Update">
-    </form>
+<div class="edit-container">
+    <div class="container-sm">
+        <form action="/comments/{{theComment.id}}?_method=PUT" method="POST">
+            <fieldset>
+                <legend class="social-title">Edit Comment</legend>
+                <input 
+                    type="text" 
+                    name="note" 
+                    placeholder="Add comment"
+                    class="form-control"
+                    value="{{ theComment.note }}"
+                >
+            </fieldset>
+            <input type="submit" class="btn btn-success" value="Update">
+        </form>
+    </div>
 </div>
+
 {% endblock %}
