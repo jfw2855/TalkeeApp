@@ -15,6 +15,9 @@
 
 .show-title {
     font-size: 50px;
+    word-wrap: break-word;
+    white-space: normal;
+    width: 71%;
 }
 
 .imdb-logo {
