@@ -71,11 +71,11 @@ li {
     margin-bottom: 40px;
 }
 
-.theater-container {
+.theater-container,.show-container {
     background-color: rgba(13, 112, 112, 0.829);
 
 }
-.profile-container,.show-container {
+.profile-container {
     background-color: rgba(13, 112, 112, 0.829);
     height: 100vh;
 }
